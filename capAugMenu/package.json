@@ -1,0 +1,24 @@
+{
+	"name": "capAugMenu",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"prestart": "./node_modules/react-viro/bin/run_ngrok.sh",
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest"
+	},
+	"dependencies": {
+		"react": "16.0.0-beta.5",
+		"react-native": "0.49.3",
+		"react-viro": "2.4.0"
+	},
+	"devDependencies": {
+		"babel-jest": "23.0.0-alpha.0",
+		"babel-preset-react-native": "4.0.0",
+		"jest": "22.4.2",
+		"react-test-renderer": "16.0.0-beta.5"
+	},
+	"jest": {
+		"preset": "react-native"
+	}
+}

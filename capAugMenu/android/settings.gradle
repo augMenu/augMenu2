@@ -1,0 +1,3 @@
+rootProject.name = 'capAugMenu'
+
+include ':app'
