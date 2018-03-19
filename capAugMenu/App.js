@@ -16,12 +16,13 @@ import {
   PixelRatio,
   TouchableHighlight,
 } from 'react-native';
+import Splash from './components/splash'
 
 
 export default class ViroSample extends Component {
   render(){
     return(
-      <Text>this is my first screen</Text>
+      <Splash/>
     )
   }
 }
