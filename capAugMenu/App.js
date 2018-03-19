@@ -17,7 +17,12 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import Splash from './components/splash'
+import { StackNavigator } from 'react-navigation'
 
+const App = StackNavigator({
+
+
+})
 
 export default class ViroSample extends Component {
   render(){

@@ -5,6 +5,7 @@ import {StackNavigator} from 'react-navigation'
 
 
 export default class extends Component{
+    
     static navigationOptions={
         title:"welcome"
     }
