@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { AppRegistry, Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
-export default class Camera extends Component {
+export default class OurCamera extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -17,6 +17,7 @@ export default class Camera extends Component {
             flashMode={RNCamera.Constants.FlashMode.on}
             permissionDialogTitle={'Permission to use camera'}
             permissionDialogMessage={'We need your permission to use your camera phone'}
+            
         />
         <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center',}}>
         <TouchableOpacity
