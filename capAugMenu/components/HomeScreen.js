@@ -18,7 +18,8 @@ export default class extends Component{
                 </TouchableOpacity>
                 
                 <TouchableOpacity onPress={() => {
-                    this.props.navigation.navigate('ARScreen')
+                    // this.props.navigation.navigate('ARScreen')
+                    this.props.navigation.navigate('CameraScreen')
                 }}  style={styles.buttonContainer}> 
                     <Text style={styles.buttonText}>
                         Scan Menu

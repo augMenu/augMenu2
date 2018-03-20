@@ -20,6 +20,7 @@ import SplashScreen from './components/SplashScreen'
 import HomeScreen from './components/HomeScreen'
 import InitialScreen from './components/InitialScreen'
 import ARScreen from './components/ARScreen'
+import CameraScreen from './components/CameraScreen'
 
 import { StackNavigator } from 'react-navigation'
 
@@ -27,7 +28,8 @@ const App = StackNavigator({
   SplashScreen: { screen: SplashScreen },
   HomeScreen : {screen : HomeScreen},
   InitialScreen : {screen : InitialScreen },
-  ARScreen : { screen : ARScreen }
+  ARScreen : { screen : ARScreen },
+  CameraScreen : { screen : CameraScreen }
 
 }, {
   // Default config for all screens
@@ -39,7 +41,7 @@ const App = StackNavigator({
 export default class ViroSample extends Component {
   render(){
     return(
-      <App/>
+      <App />
     )
   }
 }
