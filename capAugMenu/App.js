@@ -16,18 +16,30 @@ import {
   PixelRatio,
   TouchableHighlight,
 } from 'react-native';
-import Splash from './components/splash'
+import SplashScreen from './components/SplashScreen'
+import HomeScreen from './components/HomeScreen'
+import InitialScreen from './components/InitialScreen'
+import ARScreen from './components/ARScreen'
+
 import { StackNavigator } from 'react-navigation'
 
 const App = StackNavigator({
+  SplashScreen: { screen: SplashScreen },
+  HomeScreen : {screen : HomeScreen},
+  InitialScreen : {screen : InitialScreen },
+  ARScreen : { screen : ARScreen }
 
-
+}, {
+  // Default config for all screens
+  headerMode: 'none',
+  initialRouteName: 'InitialScreen',
 })
+
 
 export default class ViroSample extends Component {
   render(){
     return(
-      <Splash/>
+      <App/>
     )
   }
 }
@@ -37,12 +49,12 @@ export default class ViroSample extends Component {
 //   ViroARSceneNavigator
 // } from 'react-viro';
 
-// /*
-//  TODO: Insert your API key below
-//  */
-var sharedProps = {
-  apiKey:"7E64B933-579F-492D-B242-1E02DD37588B",
-}
+// // /*
+// //  TODO: Insert your API key below
+// //  */
+// var sharedProps = {
+//   apiKey:"7E64B933-579F-492D-B242-1E02DD37588B",
+// }
 
 // // Sets the default scene you want for AR and VR
 // var InitialARScene = require('./js/HelloWorldSceneAR');
