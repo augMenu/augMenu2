@@ -9,7 +9,7 @@ const Food = db.define('food', {
   name: {
   	type: Sequelize.STRING, 
       allowNull: false,
-      validatiion: {
+      validation: {
           notEmpty: true
       }
   }, 
