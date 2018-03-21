@@ -1,53 +1,3 @@
-// import React , {Component} from 'react'
-
-// import {StyleSheet} from 'react-native';
-
-// import {
-//     ViroARScene,
-//     ViroText,
-//   } from 'react-viro';
-
-
-//   export default class ARScreen extends Component {
-//     constructor() {
-//       super();
-  
-//       // Set initial state here
-//       this.state = {
-//         text : "Initializing AR...",
-//       };
-//       // bind 'this' to functions
-//       this._onInitialized = this._onInitialized.bind(this);
-//     }
-
-//     render() {
-//         return (
-//           <ViroARScene onTrackingInitialized={this._onInitialized} >
-//             <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
-//           </ViroARScene>
-//         );
-//       }
-    
-//       _onInitialized() {
-//         this.setState({
-//           text : "Hello World!"
-//         });
-//       }
-    
-// }
-
-// var styles = StyleSheet.create({
-//     helloWorldTextStyle: {
-//       fontFamily: 'Arial',
-//       fontSize: 30,
-//       color: '#ffffff',
-//       textAlignVertical: 'center',
-//       textAlign: 'center',  
-//     },
-//   });
-  
-//   module.exports = ARScreen;
-
 /**
  * Copyright (c) 2017-present, Viro, Inc.
  * All rights reserved.
@@ -82,6 +32,7 @@ var sharedProps = {
 
 // Sets the default scene you want for AR and VR
 var InitialARScene = require('./HelloWorldSceneAR');
+var CameraScreen = require('./Camera')
 
 export default class ARScreen extends Component {
   constructor() {
@@ -104,6 +55,7 @@ export default class ARScreen extends Component {
       <ViroARSceneNavigator {...this.state.sharedProps}
         initialScene={{scene: InitialARScene}} />
     );
+  
   }
 }
 

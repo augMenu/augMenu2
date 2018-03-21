@@ -6,12 +6,15 @@ import { StyleSheet } from 'react-native';
 
 import {
   ViroARScene,
+  ViroScene,
   ViroText,
   ViroBox,
   ViroMaterials,
   Viro3DObject,
   ViroAmbientLight,
   ViroSpotLight,
+  ViroCamera,
+  ViroVideo
 } from 'react-viro';
 
 export default class HelloWorldSceneAR extends Component {
@@ -33,22 +36,11 @@ export default class HelloWorldSceneAR extends Component {
 
   render() {
     return (
-      <ViroARScene onTrackingInitialized={this._onInitialized} >
-        <ViroText 
-            text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style=  {styles.helloWorldTextStyle} />
-        <ViroAmbientLight color={"#ffffff"} />
-        <ViroSpotLight
-            innerAngle={5} outerAngle={90} direction={[0, -1, -.2]}
-            position={[0, 3, 1]} color="#ffffff" castsShadow={true} />
-        <Viro3DObject 
-          source={{ uri: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger.obj' }}
-          resources={[{ uri: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger.mtl' },
-              {uri:'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger_BaseColor.png'}]}
-          position={[0.0, 0.0, -1]}
-          scale={[0.05, 0.05, 0.05]}
-          type="OBJ"
-          onClick={() => { this._onClicked() }} />
-      </ViroARScene>
+    <ViroScene>
+        <ViroText>
+            Some Text 
+        </ViroText>
+    </ViroScene>
     );
   }
 
@@ -56,10 +48,6 @@ export default class HelloWorldSceneAR extends Component {
     this.setState({
       text: "Hello World!"
     });
-  }
-
-  _onClicked(){
-    this.props.sceneNavigator.pop()
   }
 
 }
