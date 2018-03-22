@@ -24,8 +24,7 @@ export default class extends Component{
                         Scan Menu
                     </Text>
                 </TouchableOpacity>
-            </View>
-        )
+            </View> )
     }
 }
 const styles = StyleSheet.create({
