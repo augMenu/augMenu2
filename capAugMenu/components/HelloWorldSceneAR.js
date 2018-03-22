@@ -42,12 +42,17 @@ export default class HelloWorldSceneAR extends Component {
     }
   }
 
+    // have an image tag hidden on the screen somewhere
+      // then we could have the src uri point to our temp
+      // could we grab that via a ref tag and then be able to stringify the actual image
+      // then send it to google
 
   render() {
         return (
             <ViroARScene ref="arscene" onTrackingInitialized={this._onTrackInit}>
                 <ViroAmbientLight color="#ffffff" intensity={200}/>
                 {this._getNewComponent()}
+              
             </ViroARScene>
           );
         }
@@ -70,7 +75,13 @@ export default class HelloWorldSceneAR extends Component {
   _onClicked = async () => {
     console.warn("before Capture")
     let result = await  this.props.arSceneNavigator.takeScreenshot('newFile', true);
+
+    console.warn(result.url)
+
+    // let image = require(`${result.url}`)
+    // console.warn("this is the image", JSON.stringify(image))
     
+  
     let reqObject = { 
       "requests":[
         {
@@ -90,9 +101,10 @@ export default class HelloWorldSceneAR extends Component {
       ]
     }
     
-    let axiosResult = await axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDwp32TG1jOgZcnQYpxRjOSjLG66XbmZSI',reqObject);
+    let axiosResult = await axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDwp32TG1jOgZcnQYpxRjOSjLG66XbmZSI',reqObject).catch(err=>console.warn(err));
 
-    console.warn(axiosResult.responses[0].textAnnotations[0].description)
+    // console.warn(JSON.stringify(axiosResult))
+    // responses[0].textAnnotations[0].description
   }
 
 
