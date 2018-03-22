@@ -19,21 +19,16 @@ import {
 
 import HomeScreen from './components/HomeScreen'
 import ARScreen from './components/ARScreen'
-
 import { StackNavigator } from 'react-navigation'
 
 const AppNav = StackNavigator({
   HomeScreen : {screen : HomeScreen},
   ARScreen : { screen : ARScreen }
-
 }, {
   // Default config for all screens
   headerMode: 'none',
   initialRouteName: 'HomeScreen',
 })
-
-
-
 
 export default class extends Component {
   render(){
@@ -42,4 +37,3 @@ export default class extends Component {
     )
   }
 }
-
