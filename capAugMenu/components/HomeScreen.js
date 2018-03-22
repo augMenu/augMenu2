@@ -10,7 +10,7 @@ export default class extends Component{
                 <Text style ={styles.welcomeText}>Home Page</Text>
                 <View style={styles.logoContainer}>
                      <Image  style={styles.logoImage} source={require("../assets/GH_logo.jpg")}/>
-                     <Image  style={styles.logoImage} source={{uri: '/private/var/mobile/Containers/Data/Application/9165C20B-C1C3-4EC5-93D0-58941817B01A/tmp/viro_media/newFile.png'}}/>
+                     
                 </View>
                 <TouchableOpacity  style={styles.buttonContainer}> 
                     <Text style={styles.buttonText}>

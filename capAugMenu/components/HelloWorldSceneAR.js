@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import axios from 'axios'
 
 import {
@@ -13,7 +13,8 @@ import {
   Viro3DObject,
   ViroAmbientLight,
   ViroSpotLight,
-  ViroSurface
+  ViroSurface,
+  ViroImage
 } from 'react-viro';
 
 export default class HelloWorldSceneAR extends Component {
@@ -52,7 +53,7 @@ export default class HelloWorldSceneAR extends Component {
             <ViroARScene ref="arscene" onTrackingInitialized={this._onTrackInit}>
                 <ViroAmbientLight color="#ffffff" intensity={200}/>
                 {this._getNewComponent()}
-              
+                
             </ViroARScene>
           );
         }
@@ -60,11 +61,17 @@ export default class HelloWorldSceneAR extends Component {
  _getNewComponent() {
          
            if (this.state.showComponent) {
-              return (<ViroBox  position={(0, -1, -1)} scale={(.5, .5, .5)} />);
-            } else {
-              return (<ViroText onClick={() => this._onClicked()}
-                text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style=  {styles.helloWorldTextStyle} />); // return nothing
+              // return (<Viro3DObject  type ="OBJ" scale = {[0.05,0.05,0.05]} position = {[-5,-5,-5]} source={{uri:'http://172.16.25.156:1337/nike.obj'}}
+              // resources={[{uri:'http://172.16.25.156:1337/materials.mtl'},
+              // {uri:'http://172.16.25.156/texture.jpg'}]} />);
+
+
+
+
+
+              return(<ViroImage  height={2} width={2} style={styles.logoImage} source={{uri: '/private/var/mobile/Containers/Data/Application/9165C20B-C1C3-4EC5-93D0-58941817B01A/tmp/viro_media/newFile.png'}}/>)
             }
+            
 }
   _onInitialized() {
     this.setState({
@@ -74,7 +81,7 @@ export default class HelloWorldSceneAR extends Component {
   
   _onClicked = async () => {
     console.warn("before Capture")
-    let result = await  this.props.arSceneNavigator.takeScreenshot('newFile', true);
+    let result = await this.props.arSceneNavigator.takeScreenshot('newFile', true);
 
     console.warn(result.url)
 
@@ -102,11 +109,10 @@ export default class HelloWorldSceneAR extends Component {
     }
     
     let axiosResult = await axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDwp32TG1jOgZcnQYpxRjOSjLG66XbmZSI',reqObject).catch(err=>console.warn(err));
-
+    this.setState({showComponent:true})
     // console.warn(JSON.stringify(axiosResult))
     // responses[0].textAnnotations[0].description
   }
-
 
 }
 
@@ -119,6 +125,11 @@ var styles = StyleSheet.create({
     textAlignVertical: 'center',
     textAlign: 'center',
   },
+  logoImage:{
+    height: 200,
+    width: 200
+}
 });
 
 module.exports = HelloWorldSceneAR;
+//<Image  style={styles.logoImage} source={{uri: '/private/var/mobile/Containers/Data/Application/9165C20B-C1C3-4EC5-93D0-58941817B01A/tmp/viro_media/newFile.png'}}/>
