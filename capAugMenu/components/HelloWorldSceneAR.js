@@ -60,8 +60,10 @@ export default class HelloWorldSceneAR extends Component {
 
   _getNewComponent() {
 
-    if (this.state.showComponent) {
+    // console.warn("got inside the component")
+    if (this.state.showComponent == true) {
       return (<ViroBox position={(0, -1, -1)} scale={(.5, .5, .5)} />);
+      return(<Viro3DObject position={(0, -1, -1)} scale={(.5, .5, .5)} source={{uri : 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger.obj'}} />)
     } else {
       return (<ViroText onClick={() => this._onClicked()}
         text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />); // return nothing
@@ -110,13 +112,16 @@ export default class HelloWorldSceneAR extends Component {
     // .catch(err => console.warn(err));
     // let foodName = axiosResult.responses[0].textAnnotations[0].description //this might not work 
     // axios.get(`/food:${foodName}`)
-    let imageurl = await axios.get('http://[PUT_IP_ADDRESS_HERE]:1337/foods/food/burger') //need local ip address here when running 
+    let imageurl = await axios.get('http://172.16.25.156:1337/foods/food/berobj') //need local ip address here when running 
       .then(res => res.data)
       .then(food => {
-        console.warn('food url ', food.image)
-        return food.image
+        
+        // this.setState({imageURL: food.image, showComponent: true})
+        console.warn('this is the state ',typeof food.image)
       })
       .catch(err => console.warn(err))
+
+         
     // console.warn(JSON.stringify(axiosResult))
     // responses[0].textAnnotations[0].description
     //  axios.get('/food')
