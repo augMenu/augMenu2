@@ -66,6 +66,7 @@ export default class HelloWorldSceneAR extends Component {
         text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />); // return nothing
     }
   }
+  
   _onInitialized() {
     this.setState({
       text: "Hello World!"
