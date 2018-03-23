@@ -105,8 +105,8 @@ export default class HelloWorldSceneAR extends Component {
       keyPrefix: "screenshots/",
       bucket: "augmenu-foodmodels",
       region: "us-east-2",
-      accessKey: "AKIAJDEQBE3LMLSEEQ7A",
-      secretKey: "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",
+      accessKey: //add in the access key from slack,
+        secretKey: //add key from slack,
       successActionStatus: 201
     }
 
@@ -114,6 +114,7 @@ export default class HelloWorldSceneAR extends Component {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
       console.warn('this is the response', response.body);
+
       /**
        * {
        *   postResponse: {
@@ -124,36 +125,42 @@ export default class HelloWorldSceneAR extends Component {
        *   }
        * }
        */
-    });
-    console.warn('imageLINK ?????????', image.postResponse.location)
-    let reqObject = {
-      "requests": [
-        {
-          "image": {
-            "source": {
-              "imageUri":
-                image.postResponse.location
-            }
-          },
-          "features": [
-            {
-              "type": "TEXT_DETECTION",
-              "maxResults": 1
-            }
-          ]
-        }
-      ]
-    }
+      console.warn('imageLINK ?????????', response.body.postResponse.location)
+      let reqObject = {
+        "requests": [
+          {
+            "image": {
+              "source": {
+                "imageUri":
+                  response.body.postResponse.location
+              }
+            },
+            "features": [
+              {
+                "type": "TEXT_DETECTION",
+                "maxResults": 1
+              }
+            ]
+          }
+        ]
+      }
 
-    let axiosResult = await axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDwp32TG1jOgZcnQYpxRjOSjLG66XbmZSI', reqObject)
-      .then(result => {
-        const thing = result.responses[0]
-        // axios.get(`/food:${result}`)
-        console.warn('this is the thing!!!!!!', thing)
-      })
-      .catch(err => console.warn(err));
-    // let foodName = axiosResult.responses[0].textAnnotations[0].description //this might not work 
-    // axios.get(`/food:${foodName}`)
+      axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDwp32TG1jOgZcnQYpxRjOSjLG66XbmZSI', reqObject)
+        .then(result => {
+          const thing = result.data.responses[0].textAnnotations[0].description.replace(/\s/g, '')
+          // axios.get(`/food:${result}`)
+          console.warn('this is the thing!!!!!!', thing)
+          axios.get(`http://172.16.27.72:1337/foods/food/${thing}`) //need local ip address here when running 
+            .then(res => res.data)
+            .then(food => {
+              this.setState({ imageURL: food.image })
+              this.setState({ showComponent: "1" })
+            })
+            .catch(err => console.warn(err))
+        })
+        .catch(err => console.warn(err));
+
+    });
 
     // let imageurl = await axios.get('http://172.16.25.156:1337/foods/food/berobj') //need local ip address here when running 
     //   .then(res => res.data)
