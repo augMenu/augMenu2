@@ -25,7 +25,7 @@ export default class HelloWorldSceneAR extends Component {
     this.state = {
       text: "Initializing AR...",
       showComponent: "0",
-      imageURL: null
+      // imageURL: null
     };
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
@@ -124,7 +124,7 @@ export default class HelloWorldSceneAR extends Component {
     // .catch(err => console.warn(err));
     // let foodName = axiosResult.responses[0].textAnnotations[0].description //this might not work 
     // axios.get(`/food:${foodName}`)
-    let imageurl = await axios.get('http://172.16.25.156:1337/foods/food/berobj') //need local ip address here when running 
+    let imageurl = await axios.get('http://172.16.26.128:1337/foods/food/berobj') //need local ip address here when running 
     .then(res => res.data)
     .then(food => {
       this.setState({imageURL: food.image})
