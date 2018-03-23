@@ -34,7 +34,7 @@ export default class HelloWorldSceneAR extends Component {
     return (
       <ViroARScene onTrackingInitialized={this._onInitialized} >
         <ViroText 
-            text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style=  {styles.helloWorldTextStyle} />
+            text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style= {styles.helloWorldTextStyle} />
         <ViroAmbientLight color={"#ffffff"} />
         
         <ViroSpotLight
