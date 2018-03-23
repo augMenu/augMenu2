@@ -82,14 +82,12 @@ export default class ARScreen extends Component {
   )}
 
   _onClicked(){
-    console.warn("on Click")
     this.setState({
        isButtonClicked : true
     })
   }
 
   _clickDone(){
-    console.log("On DOne")
      this.setState({
         isButtonClicked : false
      })
