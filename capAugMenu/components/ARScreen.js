@@ -68,7 +68,7 @@ export default class ARScreen extends Component {
       //   initialScene={{scene: InitialARScene}} />
 
       <View style={localStyles.outer} >
-      <ViroARSceneNavigator style={localStyles.arView} apiKey="7E64B933-579F-492D-B242-1E02DD37588B"
+      <ViroARSceneNavigator style={localStyles.arView} apiKey= {process.env.AWS_ACCESS_KEY}
         initialScene={{scene:InitialARScene, passProps:{displayObject:this.state.displayObject}}}   viroAppProps={this.state}
       />
       
