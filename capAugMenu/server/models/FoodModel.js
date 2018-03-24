@@ -1,9 +1,6 @@
 const Sequelize = require('sequelize')
 const db = new Sequelize('postgres://localhost:5432/augMenu2', { logging: false });
 
-
-
-
 const Food = db.define('food', {
 
     name: {
@@ -19,4 +16,4 @@ const Food = db.define('food', {
 })
 
 
-module.exports = { db, Food }  
+module.exports = {Food,db};  

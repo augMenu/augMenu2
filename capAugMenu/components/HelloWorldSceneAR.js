@@ -67,6 +67,7 @@ export default class HelloWorldSceneAR extends Component {
 
     if (this.state.showComponent == "1") {
       console.warn("you hit the showComponent thingy, searching this image url", this.state.imageURL)
+      
       // return (<ViroBox position={(0, -1, -1)} scale={(.5, .5, .5)} />);
       return (
         <Viro3DObject type="OBJ" position={[0, 0, -2]} scale={[0.05, 0.05, 0.05]}
@@ -74,6 +75,7 @@ export default class HelloWorldSceneAR extends Component {
           //https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger.mtl
           resources={[{ uri: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger.mtl' },
           { uri: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger_BaseColor.jpg' }]}
+          
           source={{ uri: this.state.imageURL }}
           shadowCastingBitMask={2} lightRecievingBitMask={3}
         />)
@@ -106,8 +108,8 @@ export default class HelloWorldSceneAR extends Component {
       keyPrefix: "screenshots/",
       bucket: "augmenu-foodmodels",
       region: "us-east-2",
-      accessKey: //add in the access key from slack,
-        secretKey: //add key from slack,
+      accessKey: "AKIAJDEQBE3LMLSEEQ7A",//add in the access key from slack,
+        secretKey: "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",//add key from slack,
       successActionStatus: 201
     }
 
@@ -151,7 +153,7 @@ export default class HelloWorldSceneAR extends Component {
           const thing = result.data.responses[0].textAnnotations[0].description.replace(/\s/g, '')
           // axios.get(`/food:${result}`)
           console.warn('this is the thing!!!!!!', thing)
-          axios.get(`http://172.16.27.72:1337/foods/food/${thing}`) //need local ip address here when running 
+          axios.get(`http://172.16.26.128:1337/foods/food/${thing}`) //need local ip address here when running 
             .then(res => res.data)
             .then(food => {
               this.setState({ imageURL: food.image })
