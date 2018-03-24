@@ -16,6 +16,8 @@ import {
   PixelRatio,
   TouchableHighlight,
 } from 'react-native';
+import secrets from "./secrets"
+
 
 import HomeScreen from './components/HomeScreen'
 import ARScreen from './components/ARScreen'
