@@ -29,7 +29,7 @@ import {
 //  TODO: Insert your API key below
 //  */
 var sharedProps = {
-  apiKey:"7E64B933-579F-492D-B242-1E02DD37588B",
+  apiKey:"",
 }
 
 // Sets the default scene you want for AR and VR
@@ -67,7 +67,7 @@ export default class ARScreen extends Component {
       //   initialScene={{scene: InitialARScene}} />
 
       <View style={localStyles.outer} >
-      <ViroARSceneNavigator style={localStyles.arView} apiKey="7E64B933-579F-492D-B242-1E02DD37588B"
+      <ViroARSceneNavigator style={localStyles.arView} apiKey=""
         initialScene={{scene:InitialARScene, passProps:{displayObject:this.state.displayObject}}}   viroAppProps={this.state}
       />
       

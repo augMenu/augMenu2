@@ -108,8 +108,8 @@ export default class HelloWorldSceneAR extends Component {
       keyPrefix: "screenshots/",
       bucket: "augmenu-foodmodels",
       region: "us-east-2",
-      accessKey: "AKIAJDEQBE3LMLSEEQ7A",//add in the access key from slack,
-        secretKey: "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",//add key from slack,
+      accessKey: "",//add in the access key from slack,
+        secretKey: "",//add key from slack,
       successActionStatus: 201
     }
 
