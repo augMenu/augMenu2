@@ -93,7 +93,6 @@ export default class HelloWorldSceneAR extends Component {
 
 
     // let image = require(`${result.url}`)
-    // console.warn("this is the image", JSON.stringify(image))
     const file = {
       // `uri` can also be a file system path (i.e. file://)
       uri: result.url,
@@ -105,8 +104,8 @@ export default class HelloWorldSceneAR extends Component {
       keyPrefix: "screenshots/",
       bucket: "augmenu-foodmodels",
       region: "us-east-2",
-      accessKey:, // process.env.AWS_ACCESS_KEY,
-      secretKey:,//process.env.AWS_SEC_KEY,
+      accessKey:process.env.AWS_ACCESS_KEY,
+      secretKey:process.env.AWS_SEC_KEY,
       successActionStatus: 201
     }
 
@@ -145,14 +144,12 @@ export default class HelloWorldSceneAR extends Component {
         ]
       }
 
-      // axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${process.env.CLOUD_VISION}`, reqObject)
-      // AIzaSyDwp32TG1jOgZcnQYpxRjOSjLG66XbmZSI
-      axios.post("https://vision.googleapis.com/v1/images:annotate?key=", reqObject)
+      axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${process.env.CLOUD_VISION}`, reqObject)
         .then(result => {
           const thing = result.data.responses[0].textAnnotations[0].description.replace(/\s/g, '')
           // axios.get(`/food:${result}`)
           console.warn('this is the thing!!!!!!', thing)
-          axios.get(`http://{ip address here}:1337/foods/food/${thing}`) //need local ip address here when running 
+          axios.get(`http://{IP address here}:1337/foods/food/${thing}`) //need local ip address here when running 
             .then(res => res.data)
             .then(food => {
               this.setState({ imageURL: food.image })
@@ -163,28 +160,8 @@ export default class HelloWorldSceneAR extends Component {
         .catch(err => console.warn(err));
 
     });
-
-    // let imageurl = await axios.get('http://{ip address here}/foods/food/berobj') //need local ip address here when running 
-    //   .then(res => res.data)
-    //   .then(food => {
-    //     this.setState({ imageURL: food.image })
-    //     this.setState({ showComponent: "1" })
-    //   })
-    //   .catch(err => console.warn(err))
-
-
-
-    // console.warn(JSON.stringify(axiosResult))
-    // responses[0].textAnnotations[0].description
-    //  axios.get('/food')
-    // .then(res => res.data)
-    // .then(food => {
-    // food.image
-    // })
   }
-
 }
-
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
@@ -199,11 +176,4 @@ var styles = StyleSheet.create({
     width: 200
   }
 });
-
-// ViroMaterials.createMaterials({
-//   grid: {
-//     diffuseTexture: {uri : this.state.imageURL} || null ,
-//   },
-// });
 module.exports = HelloWorldSceneAR;
-//<Image  style={styles.logoImage} source={{uri: '/private/var/mobile/Containers/Data/Application/9165C20B-C1C3-4EC5-93D0-58941817B01A/tmp/viro_media/newFile.png'}}/>
