@@ -52,10 +52,10 @@ export default class HelloWorldSceneAR extends Component {
   render() {
     return (
       <ViroARScene ref="arscene" onTrackingInitialized={this._onTrackInit}>
-        <ViroAmbientLight color="#32CD32" />
+        <ViroAmbientLight color="#ffffff" />
         <ViroSpotLight
           innerAngle={5} outerAngle={90} direction={[0, -1, -.2]}
-          position={[0, 3, 1]} color="#32CD32" castsShadow={true} />
+          position={[0, 3, 1]} color="#fffff" castsShadow={true} />
 
         {this._getNewComponent()}
 
@@ -69,11 +69,11 @@ export default class HelloWorldSceneAR extends Component {
       console.warn("you hit the showComponent thingy, searching this image url", this.state.imageURL)
       // return (<ViroBox position={(0, -1, -1)} scale={(.5, .5, .5)} />);
       return (
-        <Viro3DObject type="OBJ" position={[0, 0, -2]} scale={[0.05, 0.05, 0.05]}
+        <Viro3DObject type="VRX" position={[-3, -10, -2]} scale={[0.05, 0.05, 0.05]}
           //https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger_BaseColor.jpg
           //https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger.mtl
-          resources={[{ uri: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger.mtl' },
-          { uri: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger_BaseColor.jpg' }]}
+          // resources={[{ uri: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger.mtl' },
+          // { uri: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger_BaseColor.jpg' }]}
           source={{ uri: this.state.imageURL }}
           shadowCastingBitMask={2} lightRecievingBitMask={3}
         />)
@@ -105,8 +105,8 @@ export default class HelloWorldSceneAR extends Component {
       keyPrefix: "screenshots/",
       bucket: "augmenu-foodmodels",
       region: "us-east-2",
-      accessKey: //add in the access key from slack,
-        secretKey: //add key from slack,
+      accessKey:, // process.env.AWS_ACCESS_KEY,
+      secretKey:,//process.env.AWS_SEC_KEY,
       successActionStatus: 201
     }
 
@@ -145,12 +145,14 @@ export default class HelloWorldSceneAR extends Component {
         ]
       }
 
-      axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDwp32TG1jOgZcnQYpxRjOSjLG66XbmZSI', reqObject)
+      // axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${process.env.CLOUD_VISION}`, reqObject)
+      // AIzaSyDwp32TG1jOgZcnQYpxRjOSjLG66XbmZSI
+      axios.post("https://vision.googleapis.com/v1/images:annotate?key=", reqObject)
         .then(result => {
           const thing = result.data.responses[0].textAnnotations[0].description.replace(/\s/g, '')
           // axios.get(`/food:${result}`)
           console.warn('this is the thing!!!!!!', thing)
-          axios.get(`http://172.16.27.72:1337/foods/food/${thing}`) //need local ip address here when running 
+          axios.get(`http://{ip address here}:1337/foods/food/${thing}`) //need local ip address here when running 
             .then(res => res.data)
             .then(food => {
               this.setState({ imageURL: food.image })
@@ -162,7 +164,7 @@ export default class HelloWorldSceneAR extends Component {
 
     });
 
-    // let imageurl = await axios.get('http://172.16.25.156:1337/foods/food/berobj') //need local ip address here when running 
+    // let imageurl = await axios.get('http://{ip address here}/foods/food/berobj') //need local ip address here when running 
     //   .then(res => res.data)
     //   .then(food => {
     //     this.setState({ imageURL: food.image })

@@ -19,6 +19,7 @@ import {
 } from 'react-native';
 
 
+
 import {
   ViroSceneNavigator,
   ViroARSceneNavigator
@@ -29,7 +30,7 @@ import {
 //  TODO: Insert your API key below
 //  */
 var sharedProps = {
-  apiKey:"7E64B933-579F-492D-B242-1E02DD37588B",
+  apiKey: process.env.VIRO_API_KEY,
 }
 
 // Sets the default scene you want for AR and VR

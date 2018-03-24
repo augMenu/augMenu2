@@ -8,7 +8,7 @@ const path = require('path') //don't need to npm install
 const foodRoutes = require('./routes/food')
 const imageRoutes = require('./routes/images')
 const db = require('./models').db
-
+const  secrets = require('./secrets.js') //I dont understand this!
 const app = express()
 module.exports = app;
 
