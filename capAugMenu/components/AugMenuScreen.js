@@ -14,32 +14,34 @@ import {
   ViroAmbientLight,
   ViroSpotLight,
   ViroSurface,
-  ViroImage
+  ViroImage,
+  ViroNode
 } from 'react-viro';
 
+const BASE_URL = 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels'
+
+
 export default class HelloWorldSceneAR extends Component {
+
 
   constructor() {
     super();
     // Set initial state here
     this.state = {
       text: "Initializing AR...",
-      showComponent: "0",
-      // imageURL: null
+      showComponent: false,
+      imageURL: null,
+      menuItem : 'twix'
     };
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
     this._getNewComponent = this._getNewComponent.bind(this);
   }
 
-  // <Viro3DObject source={{uri:'http://172.16.27.67:1337/nike.obj'}}
-  // resources={[{uri:'http://172.16.27.67:1337/materials.mtl'},
-  // {uri:'http://172.16.27.67:1337/texture.jpg'}]}
 
   componentWillReceiveProps() {
     if (this.props.arSceneNavigator.viroAppProps.isButtonClicked) {
       this._onClicked();
-
       this.props.arSceneNavigator.viroAppProps._clickDone();
     }
   }
@@ -48,41 +50,60 @@ export default class HelloWorldSceneAR extends Component {
   // then we could have the src uri point to our temp
   // could we grab that via a ref tag and then be able to stringify the actual image
   // then send it to google
+  // {this.state.showComponent === true ?   component : null }
 
   render() {
     return (
       <ViroARScene ref="arscene" onTrackingInitialized={this._onTrackInit}>
-        <ViroAmbientLight color="#32CD32" />
-        <ViroSpotLight
-          innerAngle={5} outerAngle={90} direction={[0, -1, -.2]}
-          position={[0, 3, 1]} color="#32CD32" castsShadow={true} />
+      <ViroAmbientLight color="#ffffff" intensity={200}/>
+      <ViroNode position={[0, -1, -1]}     
+                dragType="FixedDistance" onDrag={()=>{}}>
+       
+      <ViroSpotLight
+              innerAngle={5}
+              outerAngle={25}
+              direction={[0,-1,0]}
+              position={[0, 5, 0]}
+              color="#ffffff"
+              castsShadow={true}
+              shadowMapSize={2048}
+              shadowNearZ={2}
+              shadowFarZ={7}
+              shadowOpacity={.7}
+            />
+          {this.state.showComponent === true ? this._getNewComponent() : null}
 
-        {this._getNewComponent()}
-
+          <ViroSurface
+            rotation={[-90, 0, 0]}
+            position={[0, -.001, 0]}
+            width={2.5} height={2.5}
+            arShadowReceiver={true}
+          />
+          </ViroNode>
       </ViroARScene>
     );
   }
 
   _getNewComponent() {
-
-    if (this.state.showComponent == "1") {
-      console.warn("you hit the showComponent thingy, searching this image url", this.state.imageURL)
-      
-      // return (<ViroBox position={(0, -1, -1)} scale={(.5, .5, .5)} />);
       return (
-        <Viro3DObject type="OBJ" position={[0, 0, -2]} scale={[0.05, 0.05, 0.05]}
-          //https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger_BaseColor.jpg
-          //https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger.mtl
-          resources={[{ uri: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger.mtl' },
-          { uri: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/hamburger/Hamburger_BaseColor.jpg' }]}
-          
-          source={{ uri: this.state.imageURL }}
-          shadowCastingBitMask={2} lightRecievingBitMask={3}
-        />)
-    } else {
-      return (<ViroText onClick={() => this._onClicked()}
-        text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />); // return nothing
-    }
+        <Viro3DObject
+        source={{
+          uri:`${BASE_URL}/${this.state.menuItem}/Twix.obj`}}
+        // resources={[{uri:`${BASE_URL}/${this.state.menuItem}/twix_materials.mtl`},
+        //   {uri :`${BASE_URL}/${this.state.menuItem}/twix_texture.jpg`} ]}
+        scale={[.02, .02, .02]}
+        type="OBJ"
+        position={[0, -2, -2]}
+    /> )   
+      {/*
+      <Viro3DObject 
+      source={require('../js/res/lamp/Twix/Twix.obj')}
+      resources={[
+        require('../js/res/lamp/Twix/materials.mtl'),
+        require('../js/res/lamp/Twix/texture.jpg'),
+      ]}
+      position={[0, -2, -2]} scale={[.02, .02, .02]} type="OBJ" />
+      */}
   }
   
   _onInitialized() {
@@ -94,9 +115,6 @@ export default class HelloWorldSceneAR extends Component {
   _onClicked = async () => {
     let result = await this.props.arSceneNavigator.takeScreenshot('newFile', true);
 
-
-    // let image = require(`${result.url}`)
-    // console.warn("this is the image", JSON.stringify(image))
     const file = {
       // `uri` can also be a file system path (i.e. file://)
       uri: result.url,
@@ -108,15 +126,14 @@ export default class HelloWorldSceneAR extends Component {
       keyPrefix: "screenshots/",
       bucket: "augmenu-foodmodels",
       region: "us-east-2",
-      accessKey: "",//add in the access key from slack,
-        secretKey: "",//add key from slack,
+      accessKey:process.env.AWS_ACCESS_KEY,
+      secretKey:process.env.AWS_SEC_KEY,
       successActionStatus: 201
     }
 
     const image = await RNS3.put(file, options).then(response => {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
-      console.warn('this is the response', response.body);
 
       /**
        * {
@@ -129,63 +146,38 @@ export default class HelloWorldSceneAR extends Component {
        * }
        */
       console.warn('imageLINK ?????????', response.body.postResponse.location)
+
       let reqObject = {
-        "requests": [
-          {
+        "requests": [{
             "image": {
               "source": {
                 "imageUri":
                   response.body.postResponse.location
-              }
-            },
-            "features": [
-              {
+              }},
+            "features": [ {
                 "type": "TEXT_DETECTION",
                 "maxResults": 1
-              }
-            ]
-          }
-        ]
-      }
+              }]
+          }]}
 
-      axios.post('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDwp32TG1jOgZcnQYpxRjOSjLG66XbmZSI', reqObject)
+      axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${process.env.CLOUD_VISION}`, reqObject)
         .then(result => {
           const thing = result.data.responses[0].textAnnotations[0].description.replace(/\s/g, '')
-          // axios.get(`/food:${result}`)
           console.warn('this is the thing!!!!!!', thing)
-          axios.get(`http://172.16.26.128:1337/foods/food/${thing}`) //need local ip address here when running 
+
+          axios.get(`http://172.16.27.67:1337/foods/food/${thing}`) //need local ip address here when running 
             .then(res => res.data)
             .then(food => {
               this.setState({ imageURL: food.image })
-              this.setState({ showComponent: "1" })
+              this.setState({ showComponent: true})
             })
             .catch(err => console.warn(err))
         })
+        
         .catch(err => console.warn(err));
-
     });
-
-    // let imageurl = await axios.get('http://172.16.25.156:1337/foods/food/berobj') //need local ip address here when running 
-    //   .then(res => res.data)
-    //   .then(food => {
-    //     this.setState({ imageURL: food.image })
-    //     this.setState({ showComponent: "1" })
-    //   })
-    //   .catch(err => console.warn(err))
-
-
-
-    // console.warn(JSON.stringify(axiosResult))
-    // responses[0].textAnnotations[0].description
-    //  axios.get('/food')
-    // .then(res => res.data)
-    // .then(food => {
-    // food.image
-    // })
   }
-
 }
-
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
@@ -200,11 +192,4 @@ var styles = StyleSheet.create({
     width: 200
   }
 });
-
-// ViroMaterials.createMaterials({
-//   grid: {
-//     diffuseTexture: {uri : this.state.imageURL} || null ,
-//   },
-// });
 module.exports = HelloWorldSceneAR;
-//<Image  style={styles.logoImage} source={{uri: '/private/var/mobile/Containers/Data/Application/9165C20B-C1C3-4EC5-93D0-58941817B01A/tmp/viro_media/newFile.png'}}/>
