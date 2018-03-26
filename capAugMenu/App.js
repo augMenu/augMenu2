@@ -21,11 +21,14 @@ import secrets from "./secrets"
 
 import HomeScreen from './components/HomeScreen'
 import ARScreen from './components/ARScreen'
+import OnBoarding from './components/OnBoarding'
+
 import { StackNavigator } from 'react-navigation'
 
 const AppNav = StackNavigator({
   HomeScreen : {screen : HomeScreen},
-  ARScreen : { screen : ARScreen }
+  ARScreen : { screen : ARScreen },
+  OnBoarding : {screen : OnBoarding},
 }, {
   // Default config for all screens
   headerMode: 'none',

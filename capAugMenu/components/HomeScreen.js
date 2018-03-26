@@ -5,27 +5,35 @@ import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 export default class extends Component{
 
     render(){
+        const resizeMode = 'center';
+
         return(
+
             <View style={styles.container}>
-                <Text style ={styles.welcomeText}>Home Page</Text>
+                <Image source={require('../assets/Home.jpg')}   
+
+                style={styles.backgroundStyle}
+                  />
+
+                <Text style ={styles.welcomeText}>AugMenu</Text>
+
+
                 <View style={styles.logoContainer}>
-                     <Image  style={styles.logoImage} source={require("../assets/GH_logo.jpg")}/>
-                     
+                     <Image  style={styles.logoImage} source={require("../assets/logo.jpg")}/>
                 </View>
-                <TouchableOpacity  style={styles.buttonContainer}> 
-                    <Text style={styles.buttonText}>
-                        Instructions
-                    </Text>
-                </TouchableOpacity>
+
+                <View style={styles.buttonView}>
                 
                 <TouchableOpacity onPress={() => {
                     this.props.navigation.navigate('ARScreen')
                 }}  style={styles.buttonContainer}> 
                     <Text style={styles.buttonText}>
-                        Scan Menu
+                        SCAN MENU
                     </Text>
                 </TouchableOpacity>
-            </View> )
+                </View>
+            </View> 
+      )
     }
 }
 const styles = StyleSheet.create({
@@ -34,38 +42,57 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     logoContainer:{
-        flexGrow: 1, 
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop : 40
+
     },
     logoImage:{
         height: 200,
-        width: 200
+        width: 200,
+        borderRadius:100,
+
+    },
+    backgroundStyle: 
+        {
+            backgroundColor: '#ccc',
+            flex: 1,
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center',
+
     },
     welcomeText:{
         textAlign: 'center',
-        color: 'black',
-        fontSize:30,
-        marginTop:5,
-        fontWeight:'700',
-        fontFamily:'Academy Engraved LET'
+        color: 'white',
+        fontSize:45,
+        marginTop:15,
+        fontWeight:'900',
+        fontFamily:'Academy Engraved LET',
+        backgroundColor: 'transparent',
+        padding: 40,
     },
     buttonText:{
         textAlign: 'center',
-        color: 'black',
+        color:  '#f92f48',
         fontSize:20,
-        marginTop:5,
+        marginTop:9,
         fontWeight:'700',
         fontFamily:'Academy Engraved LET'
     },
-    buttonContainer:{
-        flexGrow: 1, 
+    buttonView : {
+        flex: 1, 
+        marginTop : 60,
 
-        backgroundColor: 'rgba(255,255,255,0.1)',
+    },
+    buttonContainer:{
+        backgroundColor: 'white',
         borderWidth:1,
-        borderRadius:5,
+        borderRadius:35,
         borderColor:'white',
-        paddingVertical:8,
+        padding:15,
+        margin : 40,
         alignItems : 'center'
 
     },
