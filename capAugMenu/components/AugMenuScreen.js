@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { RNS3 } from 'react-native-aws3';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, View, ActivityIndicator } from 'react-native';
 import axios from 'axios'
 
 import {
@@ -29,9 +29,8 @@ export default class HelloWorldSceneAR extends Component {
     // Set initial state here
     this.state = {
       text: "Initializing AR...",
-      showComponent: false,
       imageURL: null,
-      menuItem : 'twix'
+      menuItem : 'nestCake'
     };
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
@@ -42,7 +41,6 @@ export default class HelloWorldSceneAR extends Component {
   componentWillReceiveProps() {
     if (this.props.arSceneNavigator.viroAppProps.isButtonClicked) {
       this._onClicked();
-      this.props.arSceneNavigator.viroAppProps._clickDone();
     }
   }
 
@@ -71,7 +69,9 @@ export default class HelloWorldSceneAR extends Component {
               shadowFarZ={7}
               shadowOpacity={.7}
             />
-          {this.state.showComponent === true ? this._getNewComponent() : null}
+
+    
+          {this.props.arSceneNavigator.viroAppProps.showComponent === true && this._getNewComponent()}
 
           <ViroSurface
             rotation={[-90, 0, 0]}
@@ -84,13 +84,15 @@ export default class HelloWorldSceneAR extends Component {
     );
   }
 
+  // https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/nestCake/NestCake.obj
+
   _getNewComponent() {
       return (
         <Viro3DObject
         source={{
-          uri:`${BASE_URL}/${this.state.menuItem}/Twix.obj`}}
-        // resources={[{uri:`${BASE_URL}/${this.state.menuItem}/twix_materials.mtl`},
-        //   {uri :`${BASE_URL}/${this.state.menuItem}/twix_texture.jpg`} ]}
+          uri:`${BASE_URL}/${this.state.menuItem}/NestCake.obj`}}
+         resources={[{uri:`${BASE_URL}/${this.state.menuItem}/materials.mtl`},
+         {uri :`${BASE_URL}/${this.state.menuItem}/texture.jpg`} ]}
         scale={[.02, .02, .02]}
         type="OBJ"
         position={[0, -2, -2]}
@@ -130,6 +132,7 @@ export default class HelloWorldSceneAR extends Component {
       successActionStatus: 201
     }
 
+
     const image = await RNS3.put(file, options).then(response => {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
@@ -167,8 +170,8 @@ export default class HelloWorldSceneAR extends Component {
           axios.get(`http://172.16.27.67:1337/foods/food/${thing}`) //need local ip address here when running 
             .then(res => res.data)
             .then(food => {
-              this.setState({ imageURL: food.image })
-              this.setState({ showComponent: true})
+              this.setState({ imageURL: food.image }, () => {this.props.arSceneNavigator.viroAppProps._clickDone()})
+              
             })
             .catch(err => console.warn(err))
         })
