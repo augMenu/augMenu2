@@ -30,7 +30,7 @@ export default class HelloWorldSceneAR extends Component {
     // Set initial state here
     this.state = {
       text: "Initializing AR...",
-      menuItem: 'nestCake'
+      menuItem: ''
     };
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
