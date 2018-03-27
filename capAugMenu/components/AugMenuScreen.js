@@ -84,7 +84,7 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   _getNewComponent() {
-    console.error(`${BASE_URL}/${this.state.menuItem}/materials.mtl`)
+    // console.warn(`${BASE_URL}/${this.state.menuItem}/materials.mtl`)
     return (
       <Viro3DObject onError={()=>{
         Alert.alert(
@@ -149,7 +149,7 @@ export default class HelloWorldSceneAR extends Component {
         .then(result => {
           const thing = result.data.responses[0].textAnnotations[0].description.replace(/\s/g, '')
           this.setState({menuItem : thing.toUpperCase()})
-          console.warn('this is the thing!!!!!!', thing.toUpperCase())
+          // console.warn('this is the thing!!!!!!', thing.toUpperCase())
           this.props.arSceneNavigator.viroAppProps._clickDone()
          })
 

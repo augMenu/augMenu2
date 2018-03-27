@@ -86,34 +86,32 @@ export default class ARScreen extends Component {
             <ActivityIndicator size='large' animating={this.state.isLoading} color='#ffffff'/>
           </View>
         }
-
-        {
-          this.state.showComponent === true ? 
-
-          <View style={{position: 'absolute',  left: 0, right: 0, bottom: 40, alignItems: 'center'}}>
+        {this.state.showComponent === true ? 
+          (<View style={{position: 'absolute',  left: 0, right: 0, bottom: 40, alignItems: 'center'}}>
           <TouchableHighlight  underlayColor={'#00000000'} style={localStyles.buttons}
             onPress={() => { this._goBack() }}>  
             <Image style={localStyles.buttonImage} 
             source={require('../assets/backButton.png')}/>
             </TouchableHighlight>
-            </View>
-          
-          
-          
-      
-          
+            </View>)
           :(<View style={{position: 'absolute',  left: 0, right: 0, bottom: 40, alignItems: 'center'}}>
           <TouchableHighlight  underlayColor={'#00000000'} style={localStyles.buttons}
             onPress={() => { this._onClicked() }}>  
             <Image style={localStyles.buttonImage} 
             source={require('../assets/cube.png')}/>
             </TouchableHighlight>
-            </View>)
-          }
+            </View>)}
             </View>
     )
   }
 
+  _goBack(){
+    this.setState({
+      isButtonClicked: false,
+      showComponent : false
+    })
+
+  }
   _onClicked() {
     this.setState({
       isButtonClicked: true,
