@@ -83,7 +83,7 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   _getNewComponent() {
-    
+    console.error(`${BASE_URL}/${this.state.menuItem}/materials.mtl`)
     return (
       <Viro3DObject onError={()=>{
         Alert.alert(
