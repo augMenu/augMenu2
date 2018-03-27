@@ -8,24 +8,8 @@ const Food = model.Food;
 
 const foods = [
     {
-    name: 'Cheeseburger',
-    image: 'https://poly.google.com/view/eke7qcu_FR2',
-    },
-    {
-    name: 'Supreme Pizza',
-    image: 'https://poly.google.com/view/efHt8L0V77z',
-    },
-    {
-      name: 'Hamburger',
-      image: 'https://poly.google.com/view/7ZLzqvaiFh7',
-    },
-    {
-      name: 'sammich',
-      image: 'https://poly.google.com/view/9TD15OhRzW9',
-    },
-    {
-      name: 'donut',
-      image: 'https://poly.google.com/view/8n0uUzRmWsw',
+    name: 'NestCake',
+    image: 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels/nestCake/NestCake.obj',
     }
 ]
 
