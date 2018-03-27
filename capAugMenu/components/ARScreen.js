@@ -67,7 +67,19 @@ export default class ARScreen extends Component {
         <ViroARSceneNavigator style={localStyles.arView} apiKey={process.env.VIRO_API_KEY}
           initialScene={{ scene: InitialARScene, passProps: { displayObject: this.state.displayObject } }} viroAppProps={this.state}
         />
+    
 
+        {(this.state.showComponent === false && this.state.isButtonClicked === false) && 
+          <View style={{position: 'absolute', backgroundColor:"#ffffff55", left: 30, right: 30, top: 30, alignItems: 'center'}}>
+          <Text style={{fontSize:17, color:"#ffffff"}}>Click button to scan the Menu</Text>
+          </View>
+        }
+
+        {(this.state.showComponent === true && this.state.isButtonClicked === false) && 
+          <View style={{position: 'absolute', backgroundColor:"#ffffff55", left: 30, right: 30, top: 30, alignItems: 'center'}}>
+          <Text style={{fontSize:17, color:"#ffffff"}}>To Start next plese click button</Text>
+          </View>
+        }
 
         {(this.state.showComponent === false && this.state.isButtonClicked === true) &&   
           <View style={{position:'absolute', left:0, right:0, top:0, bottom:0, alignItems: 'center', justifyContent:'center'}}>
@@ -89,12 +101,10 @@ export default class ARScreen extends Component {
     )
   }
 
-
   _onClicked() {
     this.setState({
       isButtonClicked: true,
       showComponent : false
-
     })
   }
 
