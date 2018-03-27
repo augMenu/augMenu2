@@ -71,6 +71,7 @@ export default class HelloWorldSceneAR extends Component {
             />
 
     
+            
           {this.props.arSceneNavigator.viroAppProps.showComponent === true && this._getNewComponent()}
 
           <ViroSurface
@@ -166,17 +167,17 @@ export default class HelloWorldSceneAR extends Component {
         .then(result => {
           const thing = result.data.responses[0].textAnnotations[0].description.replace(/\s/g, '')
           console.warn('this is the thing!!!!!!', thing)
-
-          axios.get(`http://172.16.27.67:1337/foods/food/${thing}`) //need local ip address here when running 
-            .then(res => res.data)
-            .then(food => {
-              this.setState({ imageURL: food.image }, () => {this.props.arSceneNavigator.viroAppProps._clickDone()})
-              
-            })
-            .catch(err => console.warn(err))
-        })
-        
-        .catch(err => console.warn(err));
+          // axios.get(`http://172.16.25.156:1337/foods/food/${thing}`) //need local ip address here when running 
+          //   .then(res => res.data)
+          //   .then(food => {
+            //     this.setState({ imageURL: food.image }, () => {this.props.arSceneNavigator.viroAppProps._clickDone()})
+            
+            //   })
+            //   .catch(err => console.warn(err))
+          })
+          
+          .catch(err => console.warn(err));
+          this.props.arSceneNavigator.viroAppProps._clickDone()
     });
   }
 }
