@@ -15,7 +15,8 @@ import {
   StyleSheet,
   PixelRatio,
   TouchableHighlight,
-  Image
+  Image,
+  ActivityIndicator
 } from 'react-native';
 
 
@@ -48,6 +49,8 @@ export default class ARScreen extends Component {
       displayObject: false,
       isButtonClicked: false,
       _clickDone: this._clickDone,
+      showComponent: false,
+
     }
   }
 
@@ -64,6 +67,14 @@ export default class ARScreen extends Component {
         <ViroARSceneNavigator style={localStyles.arView} apiKey={process.env.VIRO_API_KEY}
           initialScene={{ scene: InitialARScene, passProps: { displayObject: this.state.displayObject } }} viroAppProps={this.state}
         />
+
+
+        {(this.state.showComponent === false && this.state.isButtonClicked === true) &&   
+          <View style={{position:'absolute', left:0, right:0, top:0, bottom:0, alignItems: 'center', justifyContent:'center'}}>
+            <ActivityIndicator size='large' animating={this.state.isLoading} color='#ffffff'/>
+          </View>
+        }
+
         <View style={{position: 'absolute',  left: 0, right: 0, bottom: 40, alignItems: 'center'}}>
           <TouchableHighlight  underlayColor={'#00000000'} style={localStyles.buttons}
             onPress={() => { this._onClicked() } 
@@ -81,13 +92,17 @@ export default class ARScreen extends Component {
 
   _onClicked() {
     this.setState({
-      isButtonClicked: true
+      isButtonClicked: true,
+      showComponent : false
+
     })
   }
 
   _clickDone() {
     this.setState({
-      isButtonClicked: false
+      isButtonClicked: false,
+      showComponent : true
+
     })
   }
 }
