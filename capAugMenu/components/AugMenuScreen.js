@@ -15,7 +15,8 @@ import {
   ViroSpotLight,
   ViroSurface,
   ViroImage,
-  ViroNode
+  ViroNode,
+  ViroARPlaneSelector
 } from 'react-viro';
 
 const BASE_URL = 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels'
@@ -54,8 +55,8 @@ export default class HelloWorldSceneAR extends Component {
     return (
       <ViroARScene ref="arscene" onTrackingInitialized={this._onTrackInit}>
       <ViroAmbientLight color="#ffffff" intensity={200}/>
-      <ViroNode position={[0, -1, -1]}     
-                dragType="FixedDistance" onDrag={()=>{}}>
+      <ViroNode position={[0, -1, 0]}     
+                dragType="FixedToWorld" onDrag={()=>{}}>
        
       <ViroSpotLight
               innerAngle={5}
@@ -72,12 +73,14 @@ export default class HelloWorldSceneAR extends Component {
 
     
             
-          {this.props.arSceneNavigator.viroAppProps.showComponent === true && this._getNewComponent()}
+          
+            {this.props.arSceneNavigator.viroAppProps.showComponent === true && this._getNewComponent()}
+            
 
           <ViroSurface
             rotation={[-90, 0, 0]}
             position={[0, -.001, 0]}
-            width={2.5} height={2.5}
+            width={0.3} height={0.3}
             arShadowReceiver={true}
           />
           </ViroNode>
@@ -89,15 +92,16 @@ export default class HelloWorldSceneAR extends Component {
 
   _getNewComponent() {
       return (
+        
         <Viro3DObject
         source={{
           uri:`${BASE_URL}/${this.state.menuItem}/NestCake.obj`}}
          resources={[{uri:`${BASE_URL}/${this.state.menuItem}/materials.mtl`},
          {uri :`${BASE_URL}/${this.state.menuItem}/texture.jpg`} ]}
-        scale={[.02, .02, .02]}
+        scale={[.002, .002, .002]}
         type="OBJ"
-        position={[0, -2, -2]}
-    /> )   
+        position={[0, .1, 0]}/> 
+    )   
       {/*
       <Viro3DObject 
       source={require('../js/res/lamp/Twix/Twix.obj')}
