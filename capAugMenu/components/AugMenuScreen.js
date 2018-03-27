@@ -15,7 +15,8 @@ import {
   ViroSpotLight,
   ViroSurface,
   ViroImage,
-  ViroNode
+  ViroNode,
+  ViroARPlaneSelector
 } from 'react-viro';
 
 const BASE_URL = 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels'
@@ -74,7 +75,7 @@ export default class HelloWorldSceneAR extends Component {
           <ViroSurface
             rotation={[-90, 0, 0]}
             position={[0, -.001, 0]}
-            width={2.5} height={2.5}
+            width={0.3} height={0.3}
             arShadowReceiver={true}
           />
         </ViroNode>
@@ -153,6 +154,7 @@ export default class HelloWorldSceneAR extends Component {
          })
 
         .catch(err => console.warn(err));
+
     });
   }
 }
