@@ -16,7 +16,9 @@ import {
   ViroSurface,
   ViroImage,
   ViroNode,
-  ViroARPlaneSelector
+  ViroARPlane,
+  ViroARPlaneSelector,
+  ViroAnimations
 } from 'react-viro';
 
 const BASE_URL = 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels'
@@ -70,6 +72,7 @@ export default class HelloWorldSceneAR extends Component {
             shadowOpacity={.7}
           />
 
+
           {this.props.arSceneNavigator.viroAppProps.showComponent === true && this._getNewComponent()}
 
           <ViroSurface
@@ -98,7 +101,10 @@ export default class HelloWorldSceneAR extends Component {
         scale={[.02, .02, .02]}
         type="OBJ"
         position={[0, 1, -4]}
-      />)
+        alignment={"Horizontal"}
+        annimation={{name:"rotate",run:true, loop:true}}
+      />
+    )
   }
 
   _onInitialized() {

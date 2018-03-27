@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     logoContainer:{
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop : 40
+        marginTop : 30
 
     },
     logoImage:{
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize:45,
         marginTop:15,
-        fontWeight:'900',
-        fontFamily:'Academy Engraved LET',
+        fontWeight:'700',
+        fontFamily:'AvenirNext-Regular',
         backgroundColor: 'transparent',
         padding: 40,
     },
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     buttonView : {
         flex: 1, 
-        marginTop : 60,
+        marginTop : 40,
 
     },
     buttonContainer:{
