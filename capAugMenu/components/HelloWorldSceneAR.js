@@ -149,7 +149,7 @@ export default class HelloWorldSceneAR extends Component {
           const thing = result.data.responses[0].textAnnotations[0].description.replace(/\s/g, '')
           // axios.get(`/food:${result}`)
           console.warn('this is the thing!!!!!!', thing)
-          axios.get(`http://{IP address here}:1337/foods/food/${thing}`) //need local ip address here when running 
+          axios.get(`http://192.168.0.23:1337/foods/food/${thing}`) //need local ip address here when running 
             .then(res => res.data)
             .then(food => {
               this.setState({ imageURL: food.image })
