@@ -15,6 +15,14 @@ const Food = db.define('food', {
     },
     image: {
         type: Sequelize.STRING
+    },
+
+    textureURL: {
+        type: Sequelize.STRING
+    },
+
+    materialURL : {
+        type: Sequelize.STRING
     }
 })
 

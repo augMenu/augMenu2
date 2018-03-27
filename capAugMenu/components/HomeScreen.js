@@ -16,8 +16,6 @@ export default class extends Component{
                   />
 
                 <Text style ={styles.welcomeText}>AugMenu</Text>
-
-
                 <View style={styles.logoContainer}>
                      <Image  style={styles.logoImage} source={require("../assets/logo.jpg")}/>
                 </View>
@@ -48,9 +46,9 @@ const styles = StyleSheet.create({
 
     },
     logoImage:{
-        height: 200,
-        width: 200,
-        borderRadius:100,
+        height: 240,
+        width: 240,
+        borderRadius:120,
 
     },
     backgroundStyle: 
@@ -75,11 +73,10 @@ const styles = StyleSheet.create({
     },
     buttonText:{
         textAlign: 'center',
-        color:  '#f92f48',
+        color:   '#f92f48',
         fontSize:20,
-        marginTop:9,
         fontWeight:'700',
-        fontFamily:'Academy Engraved LET'
+        fontFamily:'AvenirNext-Regular'
     },
     buttonView : {
         flex: 1, 
