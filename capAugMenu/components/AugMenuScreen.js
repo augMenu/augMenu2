@@ -16,7 +16,9 @@ import {
   ViroSurface,
   ViroImage,
   ViroNode,
-  ViroARPlaneSelector
+  ViroARPlane,
+  ViroARPlaneSelector,
+  ViroAnimations
 } from 'react-viro';
 
 const BASE_URL = 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels'
@@ -30,7 +32,7 @@ export default class HelloWorldSceneAR extends Component {
     // Set initial state here
     this.state = {
       text: "Initializing AR...",
-      menuItem: 'nestCake'
+      menuItem: ''
     };
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
@@ -70,6 +72,7 @@ export default class HelloWorldSceneAR extends Component {
             shadowOpacity={.7}
           />
 
+
           {this.props.arSceneNavigator.viroAppProps.showComponent === true && this._getNewComponent()}
 
           <ViroSurface
@@ -84,12 +87,12 @@ export default class HelloWorldSceneAR extends Component {
   }
 
   _getNewComponent() {
-    console.error(`${BASE_URL}/${this.state.menuItem}/materials.mtl`)
+    // console.warn(`${BASE_URL}/${this.state.menuItem}/materials.mtl`)
     return (
       <Viro3DObject onError={()=>{
         Alert.alert(
-          'Choose an object')
-      }}
+          'Could not find a model for that item, please scan again')
+        }}
         source={{
           uri: `${BASE_URL}/${this.state.menuItem}/${this.state.menuItem}.obj`
         }}
@@ -98,9 +101,13 @@ export default class HelloWorldSceneAR extends Component {
         scale={[.02, .02, .02]}
         type="OBJ"
         position={[0, 1, -4]}
-      />)
-  }
-
+        
+        animation={{name:"rotate",run:true, loop:true}}
+        />
+      )
+    }
+    
+ 
   _onInitialized() {
     this.setState({
       text: "Hello World!"
@@ -149,7 +156,7 @@ export default class HelloWorldSceneAR extends Component {
         .then(result => {
           const thing = result.data.responses[0].textAnnotations[0].description.replace(/\s/g, '')
           this.setState({menuItem : thing.toUpperCase()})
-          console.warn('this is the thing!!!!!!', thing.toUpperCase())
+          // console.warn('this is the thing!!!!!!', thing.toUpperCase())
           this.props.arSceneNavigator.viroAppProps._clickDone()
          })
 
@@ -158,7 +165,14 @@ export default class HelloWorldSceneAR extends Component {
     });
   }
 }
-
+ViroAnimations.registerAnimations({
+      rotate: {
+        properties: {
+          rotateY: "+=30"
+        },
+        duration: 1000
+      }
+})
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: 'Arial',

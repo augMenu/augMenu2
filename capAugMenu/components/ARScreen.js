@@ -77,7 +77,7 @@ export default class ARScreen extends Component {
 
         {(this.state.showComponent === true && this.state.isButtonClicked === false) && 
           <View style={{position: 'absolute', backgroundColor:"#ffffff55", left: 30, right: 30, top: 30, alignItems: 'center'}}>
-          <Text style={{fontSize:17, color:"#ffffff"}}>To Start next plese click button</Text>
+          <Text style={{fontSize:17, color:"#ffffff"}}>Please be patient, the model is being prepared</Text>
           </View>
         }
 
@@ -86,34 +86,32 @@ export default class ARScreen extends Component {
             <ActivityIndicator size='large' animating={this.state.isLoading} color='#ffffff'/>
           </View>
         }
-
-        {
-          this.state.showComponent === true ? 
-
-          <View style={{position: 'absolute',  left: 0, right: 0, bottom: 40, alignItems: 'center'}}>
+        {this.state.showComponent === true ? 
+          (<View style={{position: 'absolute',  left: 0, right: 0, bottom: 40, alignItems: 'center'}}>
           <TouchableHighlight  underlayColor={'#00000000'} style={localStyles.buttons}
             onPress={() => { this._goBack() }}>  
             <Image style={localStyles.buttonImage} 
             source={require('../assets/backButton.png')}/>
             </TouchableHighlight>
-            </View>
-          
-          
-          
-      
-          
+            </View>)
           :(<View style={{position: 'absolute',  left: 0, right: 0, bottom: 40, alignItems: 'center'}}>
           <TouchableHighlight  underlayColor={'#00000000'} style={localStyles.buttons}
             onPress={() => { this._onClicked() }}>  
             <Image style={localStyles.buttonImage} 
             source={require('../assets/cube.png')}/>
             </TouchableHighlight>
-            </View>)
-          }
+            </View>)}
             </View>
     )
   }
 
+  _goBack(){
+    this.setState({
+      isButtonClicked: false,
+      showComponent : false
+    })
+
+  }
   _onClicked() {
     this.setState({
       isButtonClicked: true,
