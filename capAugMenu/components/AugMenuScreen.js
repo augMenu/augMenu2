@@ -100,7 +100,7 @@ _displayIngredients(){
     width={1}
     position={[0, 2, -1]}
     onClick={this._closeIngredients}
-    //placeholderSource={require('../assets/chocolatemousse.jpg')}
+    placeholderSource={require('../assets/chocolatemousse.jpg')}
     source={{
       uri: `${BASE_URL}/${this.state.menuItem}/${this.state.menuItem}.jpg`
     }}
