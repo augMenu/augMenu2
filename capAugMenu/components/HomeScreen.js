@@ -1,8 +1,15 @@
 import React, {Component} from 'react'
-import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, View, Image, StyleSheet, TouchableOpacity, Modal, TouchableHighlight } from 'react-native'
 
 
 export default class extends Component{
+    state = {
+        modalVisible: false,
+    }
+
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible})
+    }
 
     render(){
         const resizeMode = 'center';
@@ -20,6 +27,31 @@ export default class extends Component{
                      <Image  style={styles.logoImage} source={require("../assets/logo.jpg")}/>
                 </View>
 
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={this.state.modalVisible}
+                    onRequestClose={() => {
+                    alert('Modal has been closed.');
+                    }}>
+                    <View style={{marginTop: 22}}>
+                    <View>
+                        <Text>How to Augmenu</Text>
+
+                        <TouchableHighlight
+                        onPress={() => {
+                            this.setModalVisible(!this.state.modalVisible);
+                        }}>
+                        <Text>Hide Modal</Text>
+                        </TouchableHighlight>
+                    </View>
+                    </View>
+                </Modal>
+                <View style={styles.buttonView}>
+                <TouchableHighlight style={styles.buttonContainer} onPress={()=> {this.setModalVisible(true)}}>
+                        <Text style={styles.buttonText} >TAP FOR INSTRUCTIONS</Text>
+                </TouchableHighlight>
+                </View>
                 <View style={styles.buttonView}>
                 
                 <TouchableOpacity onPress={() => {
@@ -80,17 +112,17 @@ const styles = StyleSheet.create({
     },
     buttonView : {
         flex: 1, 
-        marginTop : 40,
+        marginTop : 20,
 
     },
     buttonContainer:{
         backgroundColor: 'white',
-        borderWidth:1,
         borderRadius:35,
         borderColor:'white',
         padding:15,
-        margin : 40,
+        margin : 10,
         alignItems : 'center'
 
     },
+
 })
