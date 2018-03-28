@@ -17,8 +17,7 @@ import {
   ViroImage,
   ViroNode,
   ViroARPlane,
-  ViroARPlaneSelector,
-  ViroAnimations
+  ViroARPlaneSelector
 } from 'react-viro';
 
 const BASE_URL = 'https://s3.us-east-2.amazonaws.com/augmenu-foodmodels'
@@ -32,11 +31,13 @@ export default class HelloWorldSceneAR extends Component {
     // Set initial state here
     this.state = {
       text: "Initializing AR...",
-      menuItem: ''
+      menuItem: '',
+      rotation: [0,0,0]
     };
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
     this._getNewComponent = this._getNewComponent.bind(this);
+    this._onRotate = this._onRotate.bind(this);
   }
 
 
@@ -89,7 +90,7 @@ export default class HelloWorldSceneAR extends Component {
   _getNewComponent() {
     // console.warn(`${BASE_URL}/${this.state.menuItem}/materials.mtl`)
     return (
-      <Viro3DObject onError={()=>{
+      <Viro3DObject ref={component => this.foodObject = component} onError={()=>{
         Alert.alert(
           'Could not find a model for that item, please scan again')
         }}
@@ -101,13 +102,22 @@ export default class HelloWorldSceneAR extends Component {
         scale={[.02, .02, .02]}
         type="OBJ"
         position={[0, 1, -4]}
-        
-        animation={{name:"rotate",run:true, loop:true}}
+        onRotate={this._onRotate}
         />
       )
     }
     
  
+  _onRotate(rotateState, rotationFactor, source){
+    if (rotateState == 3) {
+      this.setState({
+        rotation : [this.state.rotation[0], this.state.rotation[1] + rotationFactor, this.state.rotation[2]]
+      })
+      return;
+    }
+    this.foodObject.setNativeProps({rotation:[this.state.rotation[0], this.state.rotation[1] + rotationFactor, this.state.rotation[2]]});
+
+  }
   _onInitialized() {
     this.setState({
       text: "Hello World!"
@@ -165,14 +175,7 @@ export default class HelloWorldSceneAR extends Component {
     });
   }
 }
-ViroAnimations.registerAnimations({
-      rotate: {
-        properties: {
-          rotateY: "+=30"
-        },
-        duration: 1000
-      }
-})
+
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: 'Arial',
