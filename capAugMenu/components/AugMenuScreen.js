@@ -32,18 +32,22 @@ export default class HelloWorldSceneAR extends Component {
     this.state = {
       text: "Initializing AR...",
       menuItem: '',
-      rotation: [0,0,0]
+      rotation: [0,0,0],
+      showIngredients : false
     };
     // bind 'this' to functions
     this._onInitialized = this._onInitialized.bind(this);
     this._getNewComponent = this._getNewComponent.bind(this);
     this._onRotate = this._onRotate.bind(this);
+    this._showIngredients = this._showIngredients.bind(this);
+    this._closeIngredients = this._closeIngredients.bind(this)
   }
 
 
   componentWillReceiveProps() {
     if (this.props.arSceneNavigator.viroAppProps.isButtonClicked) {
       this._onClicked();
+      this._closeIngredients();
     }
   }
 
@@ -76,6 +80,8 @@ export default class HelloWorldSceneAR extends Component {
 
           {this.props.arSceneNavigator.viroAppProps.showComponent === true && this._getNewComponent()}
 
+          {this.props.arSceneNavigator.viroAppProps.showComponent === true && this.state.showIngredients === true && this._displayIngredients()}
+         
           <ViroSurface
             rotation={[-90, 0, 0]}
             position={[0, -.001, 0]}
@@ -86,6 +92,22 @@ export default class HelloWorldSceneAR extends Component {
       </ViroARScene>
     );
   }
+
+_displayIngredients(){
+  return (
+    <ViroImage
+    height={1}
+    width={1}
+    position={[0, 2, -1]}
+    onClick={this._closeIngredients}
+    //placeholderSource={require('../assets/chocolatemousse.jpg')}
+    source={{
+      uri: `${BASE_URL}/${this.state.menuItem}/${this.state.menuItem}.jpg`
+    }}
+      /> 
+    )
+
+}
 
   _getNewComponent() {
     // console.warn(`${BASE_URL}/${this.state.menuItem}/materials.mtl`)
@@ -103,6 +125,7 @@ export default class HelloWorldSceneAR extends Component {
         type="OBJ"
         position={[0, 1, -4]}
         onRotate={this._onRotate}
+        onClick={this._showIngredients}
         />
       )
     }
@@ -116,8 +139,15 @@ export default class HelloWorldSceneAR extends Component {
       return;
     }
     this.foodObject.setNativeProps({rotation:[this.state.rotation[0], this.state.rotation[1] + rotationFactor, this.state.rotation[2]]});
-
   }
+
+ _showIngredients(){
+    this.setState({showIngredients : true})
+}
+
+_closeIngredients(){
+  this.setState({showIngredients : false})
+}
   _onInitialized() {
     this.setState({
       text: "Hello World!"
