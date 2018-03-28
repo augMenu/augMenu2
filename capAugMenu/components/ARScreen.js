@@ -77,7 +77,7 @@ export default class ARScreen extends Component {
 
         {(this.state.showComponent === true && this.state.isButtonClicked === false) && 
           <View style={{position: 'absolute', backgroundColor:"#ffffff55", left: 30, right: 30, top: 30, alignItems: 'center'}}>
-          <Text style={{fontSize:17, color:"#ffffff"}}>To Start next plese click button</Text>
+          <Text style={{fontSize:17, color:"#ffffff"}}>Please be patient, the model is being prepared</Text>
           </View>
         }
 

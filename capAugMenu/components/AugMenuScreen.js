@@ -91,8 +91,8 @@ export default class HelloWorldSceneAR extends Component {
     return (
       <Viro3DObject onError={()=>{
         Alert.alert(
-          'Choose an object')
-      }}
+          'Could not find a model for that item, please scan again')
+        }}
         source={{
           uri: `${BASE_URL}/${this.state.menuItem}/${this.state.menuItem}.obj`
         }}
@@ -101,12 +101,13 @@ export default class HelloWorldSceneAR extends Component {
         scale={[.02, .02, .02]}
         type="OBJ"
         position={[0, 1, -4]}
-        alignment={"Horizontal"}
-        annimation={{name:"rotate",run:true, loop:true}}
-      />
-    )
-  }
-
+        
+        animation={{name:"rotate",run:true, loop:true}}
+        />
+      )
+    }
+    
+ 
   _onInitialized() {
     this.setState({
       text: "Hello World!"
@@ -164,7 +165,14 @@ export default class HelloWorldSceneAR extends Component {
     });
   }
 }
-
+ViroAnimations.registerAnimations({
+      rotate: {
+        properties: {
+          rotateY: "+=30"
+        },
+        duration: 1000
+      }
+})
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: 'Arial',
