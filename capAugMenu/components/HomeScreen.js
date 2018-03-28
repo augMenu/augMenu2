@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Text, View, Image, StyleSheet, TouchableOpacity, Modal, TouchableHighlight } from 'react-native'
+import { Text, View, Image, StyleSheet, TouchableOpacity, Modal, TouchableHighlight, ScrollView } from 'react-native'
 
 
 export default class extends Component{
@@ -27,31 +27,46 @@ export default class extends Component{
                      <Image  style={styles.logoImage} source={require("../assets/logo.jpg")}/>
                 </View>
 
+
                 <Modal
+   
                     animationType="slide"
                     transparent={false}
                     visible={this.state.modalVisible}
                     onRequestClose={() => {
                     alert('Modal has been closed.');
                     }}>
-                    <View style={{marginTop: 22}}>
-                    <View>
-                        <Text>How to Augmenu</Text>
+                    <ScrollView style={{flex:1, backgroundColor: '#FF3A4B'}}>
+                    <View style={styles.listContainer}>
+                    
+                        <Text style={styles.instructionItems}>How to augMenu:</Text>
+                        <Text style={styles.instructionItems}>1. Scan a menu item: A good scan includes only key words from the title of the item on the menu.</Text>
+                        <Text style={styles.instructionItems}>E.g. Try and scan the words "Chocolate Mousse", not "A puddingesque cake made with egg whites and melted chocolate"</Text>
+                        <Text style={styles.instructionItems}>2. Wait.</Text>
+                        <Text style={styles.instructionItems}>E.g. Relax. Don't quit the app or panic.</Text>
+                        <Text style={styles.instructionItems}>3. Once the model of the food item appears, you have the option to tap it to explore its nutritional information.</Text>
+                        <Text style={styles.instructionItems}>4. Use two fingers to rotate your virtual food item.</Text>
+                        <Text style={styles.instructionItems}>5. Tap the 'X' to scan another item on the menu.</Text>
+                        <Text style={styles.instructionItems}>6. Should you get an error directing you to scan again, go back to step 1.</Text>
 
                         <TouchableHighlight
                         onPress={() => {
                             this.setModalVisible(!this.state.modalVisible);
                         }}>
-                        <Text>Hide Modal</Text>
+                        <Text style={styles.backButton}>BACK</Text>
                         </TouchableHighlight>
+   
                     </View>
-                    </View>
+                    </ScrollView>
                 </Modal>
                 <View style={styles.buttonView}>
                 <TouchableHighlight style={styles.buttonContainer} onPress={()=> {this.setModalVisible(true)}}>
-                        <Text style={styles.buttonText} >TAP FOR INSTRUCTIONS</Text>
+                        <Text style={styles.buttonText} >INSTRUCTIONS</Text>
                 </TouchableHighlight>
                 </View>
+
+
+
                 <View style={styles.buttonView}>
                 
                 <TouchableOpacity onPress={() => {
@@ -69,7 +84,7 @@ export default class extends Component{
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor: 'white'
+        backgroundColor: '#FF3A4B'
     },
     logoContainer:{
         alignItems: 'center',
@@ -122,7 +137,25 @@ const styles = StyleSheet.create({
         padding:15,
         margin : 10,
         alignItems : 'center'
-
     },
+    instructionItems:{
+        color: 'white',
+        fontSize: 16,
+        backgroundColor: '#FF3A4B',
+        padding:10,
+        textAlign: 'center',
+    },
+    backButton:{
+        color: 'white',
+        fontSize: 16,
+        backgroundColor: '#FF3A4B',
+        padding:10,
+        textAlign: 'center'
+    },
+    listContainer:{
+        alignItems: 'center',
+        backgroundColor: '#FF3A4B',
+        padding: 10
+    }
 
 })
