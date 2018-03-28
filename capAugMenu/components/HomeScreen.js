@@ -35,12 +35,12 @@ export default class extends Component {
                         <View style={styles.listContainer}>
                             <Text style={styles.headerText}>How to augMenu:</Text>
                             <Text style={styles.instructionItems}>1. Scan a menu item: A good scan includes only key words from the title of the item on the menu.</Text>
-                            <Text style={styles.instructionItems}>E.g. Try and scan the words "Chocolate Mousse", not "A puddingesque cake made with egg whites and melted chocolate"</Text>
+                            <Text style={styles.instructionItems}>E.g. Try and scan the words Chocolate Mousse, not A puddingesque cake made with egg whites and melted chocolate</Text>
                             <Text style={styles.instructionItems}>2. Wait.</Text>
-                            <Text style={styles.instructionItems}>E.g. Relax. Don't quit the app or panic.</Text>
+                            <Text style={styles.instructionItems}>E.g. Relax. Do not quit the app or panic.</Text>
                             <Text style={styles.instructionItems}>3. Once the model of the food item appears, you have the option to tap it to explore its nutritional information.</Text>
                             <Text style={styles.instructionItems}>4. Use two fingers to rotate your virtual food item.</Text>
-                            <Text style={styles.instructionItems}>5. Tap the 'X' to scan another item on the menu.</Text>
+                            <Text style={styles.instructionItems}>5. Tap the X to scan another item on the menu.</Text>
                             <Text style={styles.instructionItems}>6. Should you get an error directing you to scan again, go back to step 1.</Text>
 
                             <TouchableHighlight
