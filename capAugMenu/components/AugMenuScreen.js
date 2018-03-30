@@ -156,7 +156,7 @@ _closeIngredients(){
   }
 
   _onClicked = async () => {
-    let result = await this.props.arSceneNavigator.takeScreenshot('newFile', true);
+    let result = await this.props.arSceneNavigator.takeScreenshot('newFile', false);
 
     const file = {
       uri: result.url,
