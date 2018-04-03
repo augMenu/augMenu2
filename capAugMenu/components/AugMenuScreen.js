@@ -60,8 +60,9 @@ export default class HelloWorldSceneAR extends Component {
   render() {
     return (
       <ViroARScene ref="arscene" onTrackingInitialized={this._onTrackInit}>
-        <ViroAmbientLight color="#ffffff" intensity={200} />
-        <ViroNode position={[0, -1, -1]}
+        <ViroAmbientLight color="#ffffff" intensity={800} />
+        <ViroNode position={[0, 1, -4]}
+        //position={[0, -1, -1]}
           dragType="FixedDistance" onDrag={() => { }}>
 
           <ViroSpotLight
@@ -82,12 +83,12 @@ export default class HelloWorldSceneAR extends Component {
 
           {this.props.arSceneNavigator.viroAppProps.showComponent === true && this.state.showIngredients === true && this._displayIngredients()}
          
-          <ViroSurface
-            rotation={[-90, 0, 0]}
-            position={[0, -.001, 0]}
-            width={0.3} height={0.3}
-            arShadowReceiver={true}
-          />
+          {/*// <ViroSurface
+          //   rotation={[-90, 0, 0]}
+          //   position={[0, -.001, 0]}
+          //   width={0.3} height={0.3}
+          //   arShadowReceiver={true}
+          // /> */}
         </ViroNode>
       </ViroARScene>
     );
@@ -96,9 +97,9 @@ export default class HelloWorldSceneAR extends Component {
 _displayIngredients(){
   return (
     <ViroImage
-    height={1}
-    width={1}
-    position={[0, 2, -1]}
+    height={1.5}
+    width={1.5}
+    position={[0, 3, -4]}
     onClick={this._closeIngredients}
     placeholderSource={require('../assets/chocolatemousse.jpg')}
     source={{
@@ -155,7 +156,7 @@ _closeIngredients(){
   }
 
   _onClicked = async () => {
-    let result = await this.props.arSceneNavigator.takeScreenshot('newFile', true);
+    let result = await this.props.arSceneNavigator.takeScreenshot('newFile', false);
 
     const file = {
       uri: result.url,
