@@ -13,6 +13,6 @@ In order to test our app, you'll need to do a few things to set up:
 3. Download the Viro Media app for android or iOS
 4. Run `npm start` in the apps main directory
 5. In the Viro Media app, navigate to the enter testbed section and enter the URL generated from starting the app locally
-6. Let the application bundle on your phone and then hopefully you should be up and running!
+6. Let the application bundle on your phone and then you should be up and running!
 
 
